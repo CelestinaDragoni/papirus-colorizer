@@ -1,0 +1,192 @@
+#!/usr/bin/php
+<?php
+
+// Colors
+// Blue is default.
+$colors = [
+    'blue',
+    'black',
+    'bluegrey',
+    'brown',
+    'custom',
+    'cyan',
+    'deeporange',
+    'green',
+    'grey',
+    'indigo',
+    'magenta',
+    'nordic',
+    'orange',
+    'pink',
+    'red',
+    'teal',
+    'violet',
+    'white',
+    'yaro',
+    'yellow'
+];
+
+// Size Folders
+$sizes = [
+    '16x16',
+    '22x22',
+    '24x24',
+    '32x32',
+    '48x48',
+    '64x64',
+    '96x96',
+    '128x128'
+];
+
+$icons = [
+//  Symlink                            Real Icon File
+//  -------------------------------    ---------------------------
+    'user-home.svg'                 => 'user-%s-home.svg',
+    'user-home-open.svg'            => 'user-%s-home-open.svg',
+    'user-desktop.svg'              => 'user-%s-desktop.svg',
+    'folder.svg'                    => 'folder-%s.svg',
+    'folder-open.svg'               => 'folder-%s-open.svg',
+    'folder-android.svg'            => 'folder-%s-android.svg',
+    'folder-apple.svg'              => 'folder-%s-apple.svg',
+    'folder-arduino.svg'            => 'folder-%s-arduino.svg',
+    'folder-backup.svg'             => 'folder-%s-backup.svg',
+    'folder-applications.svg'       => 'folder-%s-applications.svg',
+    'folder-activities.svg'         => 'folder-%s-activities.svg',
+    'folder-cd.svg'                 => 'folder-%s-cd.svg',
+    'folder-code.svg'               => 'folder-%s-code.svg',
+    'folder-copy-cloud.svg'         => 'folder-%s-copy-cloud.svg',
+    'folder-wifi.svg'               => 'folder-%s-wifi.svg',
+    'folder-wine.svg'               => 'folder-%s-wine.svg',
+    'folder_wordprocessing.svg'     => 'folder-%s-documents.svg',
+    'folder-yandex-disk.svg'        => 'folder-%s-yandex-disk.svg',
+    'folder-remote.svg'             => 'folder-%s-remote.svg',
+    'folder-remote-open.svg'        => 'folder-%s-remote-open.svg',
+    'folder-script.svg'             => 'folder-%s-script.svg',
+    'folder-steam.svg'              => 'folder-%s-steam.svg',
+    'folder-sync.svg'               => 'folder-%s-sync.svg',
+    'folder-tar.svg'                => 'folder-%s-tar.svg',
+    'folder-music.svg'              => 'folder-%s-music.svg',
+    'folder-music-open.svg'         => 'folder-%s-music-open.svg',
+    'folder-network.svg'            => 'folder-%s-network.svg',
+    'folder-nextcloud.svg'          => 'folder-%s-nextcloud.svg',
+    'folder-mail-cloud.svg'         => 'folder-%s-mail-cloud.svg',
+    'folder-mail.svg'               => 'folder-%s-mail.svg',
+    'folder_man.svg'                => 'folder-%s-documents.svg',
+    'folder-mega.svg'               => 'folder-%s-mega.svg',
+    'folder-google-drive.svg'       => 'folder-%s-google-drive.svg',
+    'folder-onedrive.svg'           => 'folder-%s-onedrive.svg',
+    'folder-gnome.svg'              => 'folder-%s-gnome.svg',
+    'folder-gitlab.svg'             => 'folder-%s-gitlab.svg',
+    'folder-github.svg'             => 'folder-%s-github.svg',
+    'folder-git.svg'                => 'folder-%s-git.svg',
+    'folder-games.svg'              => 'folder-%s-games.svg',
+    'folder-favorites.svg'          => 'folder-%s-favorites.svg',
+    'folder-dropbox.svg'            => 'folder-%s-dropbox.svg',
+    'folder-drag-accept.svg'        => 'folder-%s-drag-accept.svg',
+    'folder-download-open.svg'      => 'folder-%s-download-open.svg',
+    'folder-download.svg'           => 'folder-%s-download.svg',
+    'folder-documents-open.svg'     => 'folder-%s-documents-open.svg',
+    'folder-documents.svg'          => 'folder-%s-documents.svg',
+    'folder-development.svg'        => 'folder-%s-development.svg',
+    'folder-locked.svg'             => 'folder-%s-locked.svg',
+    'folder-linux.svg'              => 'folder-%s-linux.svg',
+    'folder-kde.svg'                => 'folder-%s-kde.svg',
+    'folder-java.svg'               => 'folder-%s-java.svg',
+    'folder-print.svg'              => 'folder-%s-print.svg',
+    'folder-private.svg'            => 'folder-%s-private.svg',
+    'folder-projects.svg'           => 'folder-%s-projects.svg',
+    'folder-image-people.svg'       => 'folder-%s-image-people.svg',
+    'folder-publicshare-open.svg'   => 'folder-%s-publicshare-open.svg',
+    'folder-recent.svg'             => 'folder-%s-recent.svg',
+    'folder-important.svg'          => 'folder-%s-important.svg',
+    'folder_home2.svg'              => 'folder-%s-image-people.svg',
+    'folder-photo.svg'              => 'folder-%s-photo.svg',
+    'folder-pictures.svg'           => 'folder-%s-pictures.svg',
+    'folder-pictures-open.svg'      => 'folder-%s-pictures-open.svg',
+    'folder-owncloud.svg'           => 'folder-%s-owncloud.svg',
+    'folder-templates.svg'          => 'folder-%s-templates.svg',
+    'folder-templates-open.svg'     => 'folder-%s-templates-open.svg',
+    'folder-torrent.svg'            => 'folder-%s-torrent.svg',
+    'folder-unlocked.svg'           => 'folder-%s-unlocked.svg',
+    'folder-vbox.svg'               => 'folder-%s-vbox.svg',
+    'folder-video.svg'              => 'folder-%s-video.svg',
+    'folder-videos-open.svg'        => 'folder-%s-videos-open.svg',
+    'folder-books.svg'              => 'folder-%s-books.svg',
+    'folder-pcloud.svg'             => 'folder-%s-pcloud.svg',
+];
+
+
+// Options
+$options = getopt('', ['color:', 'dest:', 'help']);
+
+
+
+// Help Message
+if (!isset($options['color']) || !isset($options['dest']) || isset($options['help'])) 
+{
+
+    $colorList = implode($colors, ', ');
+    echo <<<EOL
+
+    Arguments:
+    --dest          Destination of Papirus icons. (Required)
+    --color         Which color you want to switch to. (Required)
+    --help          This help message.
+
+    Color Options:
+    $colorList
+
+    Example Usage:
+    ./papirus-colorizer --dest=~/.icons/Papirus --color=pink
+
+
+    EOL;
+    exit;
+} else {
+    $color = $options['color'];
+    $dest = preg_replace('/^\~/', $_SERVER['HOME'], rtrim($options['dest'], '/'), 1);
+}
+
+
+
+// Validation
+if (!in_array($color, $colors)) {
+    echo "[!]   Invalid Color Option\n";
+    exit;
+}
+
+if (!is_dir($dest)) {
+    echo "[!]   Invalid Directory\n";
+    exit;
+}
+
+
+
+// Do The Mario
+foreach($sizes as $size) {
+    $path = sprintf('%s/%s/places', $dest, $size);
+    if (is_dir($path)) {
+        echo "$path =>\n";
+        foreach ($icons as $link=>$icon) {
+            $icon = sprintf($icon, $color);
+
+            if (!file_exists("$path/$icon")) {
+                continue;
+            } else if (!file_exists("$path/$link")) {
+                continue;
+            }
+
+            $command = "cd $path && rm $link && ln -s $icon $link";
+            echo "  ".$command."\n";
+
+            system($command);
+        }
+    } else {
+        echo "[!]   $path does not exist.\n";
+        exit;
+    }
+}
+
+
+// Update Icon Cache
+system("gtk-update-icon-cache $dest");
